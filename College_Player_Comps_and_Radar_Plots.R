@@ -6,6 +6,11 @@ draft2023_college_players
 
 historical_college_players[3:17] <- scale(historical_college_players[3:17])
 
+# Adding Brandin Podziemski. I somehow missed him in my initial column.
+brandin_podziemski <- c("Brandin Podziemski",77, .520, .424, .770, 3.1, .599, .413, .309, 5.5, 
+                                    21.5, 20.1, 2.7, 1.3, 12.3, 25.1)
+
+draft2023_college_players <- rbind(draft2023_college_players, brandin_podziemski)
 # Adding Positions
 
 draft_2023positions <- c("Forward", "Guard", "Guard", "Guard-Forward",
@@ -14,10 +19,13 @@ draft_2023positions <- c("Forward", "Guard", "Guard", "Guard-Forward",
                          "Guard-Forward", "Forward", "Forward", "Guard",
                          "Guard", "Forward", "Forward", "Forward", "Guard-Forward",
                          "Forward-Center", "Guard-Forward", "Forward", "Guard",
-                         "Guard", "Guard", "Forward", "Forward")
+                         "Guard", "Guard", "Forward", "Forward", "Guard")
 
 draft2023_college_players <- draft2023_college_players %>%
   mutate(POSITION = draft_2023positions, .after = DISPLAY_FIRST_LAST)
+
+draft2023_college_players <- draft2023_college_players %>%
+  mutate_at(vars(3:17), as.numeric)
 
 # Scaling 2023 Data
 
@@ -66,7 +74,7 @@ combined <- bind_rows(draft2023_college_players, historical_college_players)
 combined <- combined[, -2]  
 
 # It is probably advisable to remove some very low volume 100% 3PT shooters for the Radar Plots, like Jeff Withey and Miles Plumlee
-combined <- combined[-c(319, 208, 82),]
+combined <- combined[-c(320, 209, 83),]
 
 
 # Rescaling from 0-1 
@@ -93,7 +101,7 @@ combined_radar_fmsb <- combined_radar_fmsb %>%
 
 
 # Iterate over each player and make radarchart
-for (i in 3:31) {
+for (i in 3:32) {
   player <- combined_radar_fmsb[i, ]
   
   

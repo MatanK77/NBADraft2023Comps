@@ -65,6 +65,10 @@ combined <- bind_rows(draft2023_college_players, historical_college_players)
 
 combined <- combined[, -2]  
 
+# It is probably advisable to remove some very low volume 100% 3PT shooters for the Radar Plots, like Jeff Withey and Miles Plumlee
+combined <- combined[-c(319, 208, 82),]
+
+
 # Rescaling from 0-1 
 
 combined_radar <- combined %>%
